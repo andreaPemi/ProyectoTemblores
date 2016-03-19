@@ -91,10 +91,10 @@ public class MainActivity extends AppCompatActivity
         if(sMapFragment.isAdded()) {
             sFm.beginTransaction().hide(sMapFragment).commit();
         }
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_hour) {
             // Handle the camera action
             fm.beginTransaction().replace(R.id.content_frame, new ImportFragment()).commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_day) {
 
             if(!sMapFragment.isAdded()) {
                 sFm.beginTransaction().add(R.id.map, sMapFragment).commit();
@@ -102,15 +102,18 @@ public class MainActivity extends AppCompatActivity
             sFm.beginTransaction().show(sMapFragment).commit();
             }
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_week) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_month) {
 
-        } else if (id == R.id.nav_share) {
+        }
+        /*
+        else if (id == R.id.nav_share) {
+
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
