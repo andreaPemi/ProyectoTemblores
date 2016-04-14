@@ -31,13 +31,18 @@ public class JsonTerremotoParse {
         //lista temporal
         ArrayList terremotos = new ArrayList();
         //Apuntamos al primer elemento del array y luego
-        reader.beginArray();
-        while  (reader.hasNext()){
-            //leer objeto
-            terremotos.add(leerTerremoto(reader));
+        try{
+            reader.beginObject(); //Entro en el primer nivel del JSON
+            while  (reader.hasNext()){
+                //leer objeto
+                terremotos.add(leerTerremoto(reader));
+            }
+            //liberamos la memoria cerrando el array
+            reader.endArray();
+        }catch(Exception e){
+            System.out.println(e);
         }
-        //liberamos la memoria cerrando el array
-        reader.endArray();
+
         return terremotos;
     }
 
@@ -45,27 +50,32 @@ public class JsonTerremotoParse {
     public Terremoto leerTerremoto(JsonReader reader) throws IOException{
         Double mag = null;
         String place = null;
-       Double coordinates = null;
+        Double coordinates = null;
         //apuntamos al primer elemento
-        reader.beginObject();
-        while(reader.hasNext()){
-            String name = reader.nextName();
-            switch (name) {
-                case "mag":
-                    mag = reader.nextDouble();
-                    break;
-                case "place":
-                    place = reader.nextString();
-                    break;
-                case "coordinates":
-                    coordinates = reader.nextDouble();
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
+        try{
+//            reader.beginObject();
+            while(reader.hasNext()){
+                String name = reader.nextName();
+                switch (name) {
+                    case "mag":
+                        mag = reader.nextDouble();
+                        break;
+                    case "place":
+                        place = reader.nextString();
+                        break;
+                    case "coordinates":
+                        coordinates = reader.nextDouble();
+                        break;
+                    default:
+                        reader.skipValue();
+                        break;
+                }
             }
+//            reader.endObject();
+        }catch(Exception e){
+            System.out.println(e);
         }
-    reader.endObject();
+
         return  new Terremoto(mag,place,coordinates);
 
     }
