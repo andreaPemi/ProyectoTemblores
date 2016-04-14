@@ -13,10 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -42,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+        fm.beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
 
         sMapFragment.getMapAsync(this);
     }
@@ -93,9 +100,10 @@ public class MainActivity extends AppCompatActivity
         }
         if (id == R.id.nav_hour) {
             // Handle the camera action
-            fm.beginTransaction().replace(R.id.content_frame, new ImportFragment()).commit();
+            //fm.beginTransaction().replace(R.id.content_frame, new ImportFragment()).commit();
+           mostrarTerremotos("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson");
         } else if (id == R.id.nav_day) {
-
+           mostrarTerremotos("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson");
             if(!sMapFragment.isAdded()) {
                 sFm.beginTransaction().add(R.id.map, sMapFragment).commit();
             } else {
@@ -103,9 +111,9 @@ public class MainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_week) {
-
+            mostrarTerremotos("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson");
         } else if (id == R.id.nav_month) {
-
+            mostrarTerremotos("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson");
         }
         /*
         else if (id == R.id.nav_share) {
@@ -122,7 +130,30 @@ public class MainActivity extends AppCompatActivity
 
     //funcion para poner las coordenas, el marcador y de mas
     @Override
-    public void onMapReady(GoogleMap googleMap){
+    public void onMapReady(GoogleMap map){
 
+       LatLng sydney = new LatLng(-34,151);
+
+        map.addMarker(new MarkerOptions().position(sydney).title("ESTO ES UNA MIERDA MARCOOOOSS!!!!!"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+    public void mostrarTerremotos(String url){
+
+        new TareaRed() {
+            protected void onPostExecute(List<Terremoto> resultado) {
+                terremotos = resultado;
+
+                for(int x=0; x<terremotos.size(); x++){
+                    //Cada iteración que tenga la lista esta
+                    //ponerDatos(terremotos.get(x).getCoordinates());
+                }
+            }
+        }.execute(url);
+    }
+
+    private List<Terremoto> terremotos;
+
+
+
 }

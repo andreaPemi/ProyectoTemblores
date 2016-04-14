@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.MapFragment;
+
 /**
  * Created by andrea on 11/3/16.
  */
@@ -21,6 +23,7 @@ public class ImportFragment extends Fragment {
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState){
        super.onViewCreated(view, savedInstanceState);
+
         }
     }
 
