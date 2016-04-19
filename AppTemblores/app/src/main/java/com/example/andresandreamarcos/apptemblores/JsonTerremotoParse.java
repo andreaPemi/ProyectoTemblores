@@ -27,7 +27,8 @@ public class JsonTerremotoParse {
     }
 
 //funcion q recorre el array enviado desde el servidor.Recibe como parametro el lector Json
-    public  List leerArrayTerremotos(JsonReader reader)throws  IOException{
+
+   public  List leerArrayTerremotos(JsonReader reader)throws  IOException{
         //lista temporal
         ArrayList terremotos = new ArrayList();
         //Apuntamos al primer elemento del array y luego
