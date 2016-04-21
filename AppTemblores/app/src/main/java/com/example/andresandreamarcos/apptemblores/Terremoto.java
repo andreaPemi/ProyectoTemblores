@@ -4,16 +4,17 @@ package com.example.andresandreamarcos.apptemblores;
  * Created by andrea on 30/3/16.
  */
 public class Terremoto {
-    private Double mag;
+    private double mag;
     private String place;
-    private Double coordinates;
+    private double x, y;
 
-    public Terremoto(Double mag, String place, Double coordinates){
+    public Terremoto(double mag, String place, double x, double y){
         this.mag = mag;
         this.place = place;
-        this.coordinates = coordinates;
+        this.x = x;
+        this.y = y;
     }
-    public Double getMag() {
+    public double getMag() {
         return mag;
     }
 
@@ -29,11 +30,19 @@ public class Terremoto {
         this.place = place;
     }
 
-    public Double getCoordinates() {
-        return coordinates;
+    public double getY() {
+        return y;
     }
 
-    public void setCoordinates(Double coordinates) {
-        this.coordinates = coordinates;
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
     }
 }
